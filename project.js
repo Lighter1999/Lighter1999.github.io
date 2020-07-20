@@ -105,7 +105,7 @@ barba.init({
         namespace: 'home',
         beforeEnter() {
             animateSlides();
-            logo.href = '/project.html';
+            logo.href = '/index.html';
         },
         beforeLeave() {
             slideScene.destroy();
@@ -116,7 +116,7 @@ barba.init({
     {
         namespace: 'fashion',
         beforeEnter(){
-            logo.href = './project.html'
+            logo.href = './index.html'
             detailAnimation();
             gsap.fromTo('.nav-header', 1, {y: '100%'}, {y: '0%', ease: power2.inOut});
         }, 
