@@ -373,4 +373,37 @@ body.hide {
         padding: 2rem;
         text-align: center;
     }
+    
+    .fashion-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .fashion1 h1, .fashion2 h1, .fashion3 h1 {
+        font-size: 2.3rem;
+    }
+
+    .fashion1 p, .fashion2 p, .fashion3 p {
+        font-size: 1rem;
+    }
+
+    .fashion1 img {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+    }
+
+    .fashion2 img {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+    }
+
+    .fashion3 img {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+    }
 }
