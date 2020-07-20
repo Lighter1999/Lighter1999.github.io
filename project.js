@@ -1,6 +1,7 @@
 let controller;
 let slideScene;
-
+let pageScene;
+let detailScene;
 function animateSlides() {
     // init controller
     controller = new ScrollMagic.Controller();
@@ -27,7 +28,7 @@ function animateSlides() {
             triggerElement: slide, // la slide se activeaza
             triggerHook: 0.25 
         }).setTween(slideTl)
-        .addIndicators({colorStart: 'white', colorTrigger: 'white', name: 'slide'}).addTo(controller);
+        .addIndicators({colorStart: '#17181a', colorTrigger: '#17181a', name: 'slide'}).addTo(controller);
     // sunt niste triggere, care atunci cand se intalnesc se intampla ceva
 
         // new animation
@@ -43,7 +44,7 @@ function animateSlides() {
             duration: '100%',
             triggerHook: 0
         }).addIndicators({
-            colorStart: 'white', colorTrigger: 'white', name: 'page', indent: 200}).setTween(pageTl)
+            colorStart: '#17181a', colorTrigger: '#17181a', name: 'page', indent: 200}).setTween(pageTl)
             .addTo(controller).setPin(slide, {pushFollowers: false});
     });
 }
@@ -116,8 +117,14 @@ barba.init({
         namespace: 'fashion',
         beforeEnter(){
             logo.href = './project.html'
+            detailAnimation();
+            gsap.fromTo('.nav-header', 1, {y: '100%'}, {y: '0%', ease: power2.inOut});
+        }, 
+        beforeLeave() {
+            controller.destroy();
+            detailScene.destroy();
         }
-    }
+    }    
   ],
   transitions: [
       {
@@ -139,6 +146,34 @@ barba.init({
       }
   ]
 });
+
+function detailAnimation() {
+    controller = new ScrollMagic.Controller();
+    const slides = document.querySelectorAll('.detail-slide');
+    slides.forEach((slide, index, slides) => {
+        const slideTl = gsap.timeline({defaults: {duration: 1}});
+        let nextSlide = slides.length - 1 === index ? 'end' : slides[index + 1];
+        const nextImg = nextSlide.querySelector('img');
+        slideTl.fromTo(slide, {opacity: 1}, {opacity: 0});
+        slideTl.fromTo(nextSlide, {opacity: 0}, {opacity: 1}, '-=1');
+        slideTl.fromTo(nextImg, {x: '50%'}, {x: '0%'}); // vine imaginea de la dreapta la stanga
+
+        // Scene
+        detailScene = new ScrollMagic.Scene({
+            triggerElement: slide,
+            duration: '100%',
+            triggerHook: 0
+        })
+        .setPin(slide, {pushFollowers: false})
+        .setTween(slideTl)
+        .addIndicators({
+            colorStart: 'white',
+            colorTrigger: 'white',
+            name: 'detailScene'
+        })
+        .addTo(controller);
+    });
+}
 
 // Event listeners
 
